@@ -13,7 +13,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.reciclaitape.R;
@@ -23,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class mapaActivity extends AppCompatActivity implements OnMapReadyCallback{
     private GoogleMap mMap;
     List<markers> pontos;
 
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        mMap.getUiSettings().setMapToolbarEnabled(false);
         Call<List<markers>> listCall = ApiClient.getMarkersService().getMarkers();
         listCall.enqueue(new Callback<List<markers>>() {
             @Override
@@ -54,13 +54,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 }
                 else{
-                    Toast.makeText(MainActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mapaActivity.this, "Erro", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<markers>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mapaActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
                 Log.e("ERRO",t.getMessage());
             }
         });
