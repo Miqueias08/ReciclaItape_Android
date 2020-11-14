@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMaxZoomPreference(20.0f);
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
         Call<List<markers>> listCall = ApiClient.getMarkersService().getMarkers();
         listCall.enqueue(new Callback<List<markers>>() {
             @Override
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if(response.isSuccessful()){
                     for (markers pnt:response.body()){
                         try {
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(pnt.getLat(),pnt.getLng())).title(pnt.getName()));
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(pnt.getLat(),pnt.getLng())).title(pnt.getName()).snippet(pnt.getAddress()));
                         }
                         catch (Exception e) {
                             Log.e("ERRO", e.getMessage());
