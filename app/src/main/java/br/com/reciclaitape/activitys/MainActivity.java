@@ -34,13 +34,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync((OnMapReadyCallback) this);
-        //buscaPontos();
-
-    }
-    public void buscaPontos(){
-
-
-
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -50,19 +43,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         listCall.enqueue(new Callback<List<markers>>() {
             @Override
             public void onResponse(Call<List<markers>> call, Response<List<markers>> response) {
-              for (markers pnt:response.body()){
-                  try {
-                      mMap.addMarker(new MarkerOptions().position(new LatLng(pnt.getLat(),pnt.getLng())).title(pnt.getName()));
-                  }
-                  catch (Exception e) {
-                      Log.e("ERRO", e.getMessage());
-                  }
-              }
+                if(response.isSuccessful()){
+                    for (markers pnt:response.body()){
+                        try {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(pnt.getLat(),pnt.getLng())).title(pnt.getName()));
+                        }
+                        catch (Exception e) {
+                            Log.e("ERRO", e.getMessage());
+                        }
+                    }
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(Call<List<markers>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
                 Log.e("ERRO",t.getMessage());
             }
         });
