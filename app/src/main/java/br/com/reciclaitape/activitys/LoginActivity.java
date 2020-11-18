@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginResponseCall.enqueue(new Callback<ApiClient.LoginResponse>() {
                     @Override
                     public void onResponse(Call<ApiClient.LoginResponse> call, Response<ApiClient.LoginResponse> response) {
-                        
+
                     }
 
                     @Override
