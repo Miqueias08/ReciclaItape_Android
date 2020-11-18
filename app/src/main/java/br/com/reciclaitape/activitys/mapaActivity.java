@@ -19,18 +19,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 import br.com.reciclaitape.R;
 import br.com.reciclaitape.api.ApiClient;
-import br.com.reciclaitape.classes.markers;
+import br.com.reciclaitape.classes.Markers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class mapaActivity extends AppCompatActivity implements OnMapReadyCallback{
     private GoogleMap mMap;
-    List<markers> pontos;
+    List<Markers> pontos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +45,12 @@ public class mapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         float zoomLevel = 12.0f;
         mMap.getUiSettings().setMapToolbarEnabled(false);
-        Call<List<markers>> listCall = ApiClient.getMarkersService().getMarkers();
-        listCall.enqueue(new Callback<List<markers>>() {
+        Call<List<Markers>> listCall = ApiClient.getMarkersService().getMarkers();
+        listCall.enqueue(new Callback<List<Markers>>() {
             @Override
-            public void onResponse(Call<List<markers>> call, Response<List<markers>> response) {
+            public void onResponse(Call<List<Markers>> call, Response<List<Markers>> response) {
                 if(response.isSuccessful()){
-                    for (markers pnt:response.body()){
+                    for (Markers pnt:response.body()){
                         try {
                             mMap.addMarker(new MarkerOptions().position(new LatLng(pnt.getLat(),pnt.getLng())).title(pnt.getName()).snippet(pnt.getAddress()));
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(pnt.getLat(),pnt.getLng()), zoomLevel), 200, null);
@@ -67,7 +66,7 @@ public class mapaActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             @Override
-            public void onFailure(Call<List<markers>> call, Throwable t) {
+            public void onFailure(Call<List<Markers>> call, Throwable t) {
                 Toast.makeText(mapaActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
                 Log.e("ERRO",t.getMessage());
             }

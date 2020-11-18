@@ -1,16 +1,6 @@
 package br.com.reciclaitape.classes;
 
-public class login {
-    private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+public class Login {
     public String getEmail() {
         return email;
     }

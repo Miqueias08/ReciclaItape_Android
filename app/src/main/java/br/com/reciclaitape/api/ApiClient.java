@@ -1,11 +1,7 @@
 package br.com.reciclaitape.api;
 
-import java.util.List;
-
-import br.com.reciclaitape.classes.markers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,5 +29,34 @@ public class ApiClient {
     public static ServiceLogin getLoginService(){
         ServiceLogin loginService = retrofit().create(ServiceLogin.class);
         return loginService;
+    }
+    public static class LoginResponse{
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getSenha() {
+            return senha;
+        }
+
+        public void setSenha(String senha) {
+            this.senha = senha;
+        }
+
+        private Integer id;
+        private String email;
+        private String senha;
     }
 }

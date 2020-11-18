@@ -1,6 +1,6 @@
 package br.com.reciclaitape.classes;
 
-public class markers{
+public class Markers {
     private int id;
     private String name;
     private String address;
