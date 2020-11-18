@@ -55,6 +55,15 @@ public class ApiClient {
             this.senha = senha;
         }
 
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        private String status;
         private Integer id;
         private String email;
         private String senha;

@@ -2,11 +2,19 @@ package br.com.reciclaitape.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import br.com.reciclaitape.R;
 import br.com.reciclaitape.api.ApiClient;
@@ -23,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         carregaComponentes();
+        verificaLogin();
     }
     public void carregaComponentes(){
         txtEmail = (EditText) findViewById(R.id.txtEmail);
@@ -35,6 +44,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    public void verificaLogin(){
+        SharedPreferences sharedPreferences;
+        sharedPreferences = getSharedPreferences("Credenciais",Context.MODE_PRIVATE);
+        boolean logado = sharedPreferences.getBoolean("Logado",false);
+        if(logado==true){
+            Intent tela = new Intent(LoginActivity.this,CadastroPontoActivity.class);
+            startActivity(tela);
+            finish();
+        }
+    }
     public void EfetuaLogin(){
         if(validaLogin()==true){
             try {
@@ -45,12 +64,23 @@ public class LoginActivity extends AppCompatActivity {
                 loginResponseCall.enqueue(new Callback<ApiClient.LoginResponse>() {
                     @Override
                     public void onResponse(Call<ApiClient.LoginResponse> call, Response<ApiClient.LoginResponse> response) {
-
+                        try {
+                            if(response.body().getStatus().equals("ok")){
+                                JSONObject dados = new JSONObject(new Gson().toJson(response.body()));
+                                if(guardarUsuario(dados.toString()).equals(true)){
+                                    Intent tela = new Intent(LoginActivity.this,CadastroPontoActivity.class);
+                                    startActivity(tela);
+                                }
+                            }
+                        }
+                        catch (Exception e){
+                            Log.e("ERRO",e.getMessage());
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<ApiClient.LoginResponse> call, Throwable t) {
-
+                        Toast.makeText(LoginActivity.this, "Erro", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -70,6 +100,19 @@ public class LoginActivity extends AppCompatActivity {
             erros+=1;
         }
         if(erros==0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public Boolean guardarUsuario(String credencialUser){
+        SharedPreferences sharedPreferences;
+        sharedPreferences = getSharedPreferences("Credenciais", Context.MODE_PRIVATE);
+        SharedPreferences.Editor sharedPref = sharedPreferences.edit();
+        sharedPref.putString("Credencial",credencialUser);
+        sharedPref.putBoolean("Logado",true);
+        if(sharedPref.commit()){
             return true;
         }
         else{

@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class mapaActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MapaActivity extends AppCompatActivity implements OnMapReadyCallback{
     private GoogleMap mMap;
     List<Markers> pontos;
 
@@ -61,13 +61,13 @@ public class mapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 }
                 else{
-                    Toast.makeText(mapaActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapaActivity.this, "Erro", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Markers>> call, Throwable t) {
-                Toast.makeText(mapaActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapaActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
                 Log.e("ERRO",t.getMessage());
             }
         });
