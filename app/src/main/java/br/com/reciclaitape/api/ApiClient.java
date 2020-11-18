@@ -30,4 +30,8 @@ public class ApiClient {
         ServiceMarkers markersService = retrofit().create(ServiceMarkers.class);
         return markersService;
     }
+    public static ServiceLogin getLoginService(){
+        ServiceLogin loginService = retrofit().create(ServiceLogin.class);
+        return loginService;
+    }
 }

@@ -17,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReciclaItape">
+        <activity android:name=".activitys.LoginActivity"></activity>
         <activity android:name=".activitys.mapaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

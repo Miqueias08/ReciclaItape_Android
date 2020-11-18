@@ -1,9 +1,14 @@
 package br.com.reciclaitape.activitys;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,6 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
+import java.util.zip.Inflater;
 
 import br.com.reciclaitape.R;
 import br.com.reciclaitape.api.ApiClient;
@@ -37,7 +43,8 @@ public class mapaActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        float zoomLevel = 12.0f;
         mMap.getUiSettings().setMapToolbarEnabled(false);
         Call<List<markers>> listCall = ApiClient.getMarkersService().getMarkers();
         listCall.enqueue(new Callback<List<markers>>() {
@@ -47,6 +54,7 @@ public class mapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                     for (markers pnt:response.body()){
                         try {
                             mMap.addMarker(new MarkerOptions().position(new LatLng(pnt.getLat(),pnt.getLng())).title(pnt.getName()).snippet(pnt.getAddress()));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(pnt.getLat(),pnt.getLng()), zoomLevel), 200, null);
                         }
                         catch (Exception e) {
                             Log.e("ERRO", e.getMessage());
@@ -65,7 +73,34 @@ public class mapaActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-23.589184, -48.048853)));
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.home_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.atualizar:
+                AtualizarMapa();
+                break;
+            case R.id.login:
+                Login();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    public void AtualizarMapa(){
+
+    }
+    public void Login(){
+        Intent login = new Intent(this,LoginActivity.class);
+        startActivity(login);
+        finish();
     }
 }
