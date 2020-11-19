@@ -2,6 +2,9 @@ package br.com.reciclaitape.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,7 +25,9 @@ import java.util.List;
 
 import br.com.reciclaitape.R;
 import br.com.reciclaitape.api.ApiClient;
+import br.com.reciclaitape.classes.AcoesListView;
 import br.com.reciclaitape.classes.Markers;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,7 +54,7 @@ public class listagem_pontos extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String text = String.valueOf(lstvPontos1.getItemAtPosition(i));
                 Integer id =Integer.parseInt(text.split("]")[0].replace("[","").trim());
-                Toast.makeText(listagem_pontos.this, id.toString(), Toast.LENGTH_SHORT).show();
+               acoesList(id);
             }
         });
     }
@@ -58,9 +64,17 @@ public class listagem_pontos extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Markers>> call, Response<List<Markers>> response) {
                 try {
-                    markers = response.body();
-                    ArrayAdapter<Markers> adapter = new ArrayAdapter<Markers>(listagem_pontos.this, android.R.layout.simple_list_item_1,markers);
-                    lstvPontos1.setAdapter(adapter);
+                    if(response.body().size()>0) {
+                        markers = response.body();
+                        ArrayAdapter<Markers> adapter = new ArrayAdapter<Markers>(listagem_pontos.this, android.R.layout.simple_list_item_1, markers);
+                        lstvPontos1.setAdapter(adapter);
+                    }
+                    else{
+                        List<String> dados = new ArrayList<String>();
+                        dados.add("Não foi possivel localizar nenhum ponto!");
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(listagem_pontos.this, android.R.layout.simple_list_item_1,dados);
+                        lstvPontos1.setAdapter(arrayAdapter);
+                    }
                 }
                 catch (Exception e){
                     Log.e("ERRO",e.getMessage());
@@ -70,8 +84,42 @@ public class listagem_pontos extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Markers>> call, Throwable t) {
                 Toast.makeText(listagem_pontos.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
-                Log.e("ERRO",t.getMessage());
             }
         });
+    }
+    public void acoesList(int id){
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("Ações");
+        b.setMessage("O que deseja fazer?");
+        b.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        });
+        b.setNegativeButton("Deletar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deletar(id);
+            }
+        });
+        b.create().show();
+    }
+    public void deletar(Integer id){
+        Call<ResponseBody> listCall = ApiClient.getMarkersService().deletarPonto(String.valueOf(id));
+        listCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+                    buscaPontos();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
     }
 }
