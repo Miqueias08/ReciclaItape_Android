@@ -43,15 +43,12 @@ public class listagem_pontos extends AppCompatActivity {
     }
     public void carregaComponentes(){
         lstvPontos1 = (ListView) findViewById(R.id.lstvPontos);
-        lstvPontos1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        lstvPontos1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.e("")
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String text = String.valueOf(lstvPontos1.getItemAtPosition(i));
+                Integer id =Integer.parseInt(text.split("]")[0].replace("[","").trim());
+                Toast.makeText(listagem_pontos.this, id.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
