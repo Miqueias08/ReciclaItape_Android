@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReciclaItape">
-        <activity android:name=".activitys.listagem_pontos"></activity>
+        <activity android:name=".activitys.CadastroPontoActivity"></activity>
+        <activity android:name=".activitys.listagem_pontos" />
         <activity android:name=".activitys.login" />
         <activity android:name=".activitys.mapa_reciclagem">
             <intent-filter>

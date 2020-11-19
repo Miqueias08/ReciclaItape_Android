@@ -1,5 +1,6 @@
 package br.com.reciclaitape.activitys;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -8,6 +9,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -22,6 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import br.com.reciclaitape.R;
 import br.com.reciclaitape.api.ApiClient;
@@ -58,6 +63,26 @@ public class listagem_pontos extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_ponto,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.adiconarPonto:
+                Intent intent = new Intent(this,CadastroPontoActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void buscaPontos(){
         Call<List<Markers>> listCall = ApiClient.getMarkersService().getMarkers();
         listCall.enqueue(new Callback<List<Markers>>() {
