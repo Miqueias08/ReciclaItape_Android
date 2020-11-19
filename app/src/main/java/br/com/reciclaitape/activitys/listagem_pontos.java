@@ -46,6 +46,7 @@ public class listagem_pontos extends AppCompatActivity {
         setContentView(R.layout.listagem_pontos);
         carregaComponentes();
         buscaPontos();
+        getSupportActionBar().setTitle("Listagem de Pontos");
     }
     @Override
     public void onBackPressed() {
