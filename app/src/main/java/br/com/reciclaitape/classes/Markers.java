@@ -85,6 +85,6 @@ public class Markers {
 
     public String toString(){
 
-        return String.format("%d-%s-%s-%s-%s-%s-%s-%s-%s",id,name,address,lat,lng,type,(papel==1)?"Coleta Papel":"",(plastico==1)?"Coleta Plastico":"",(vidro==1)?"Coleta Vidro":"");
+        return String.format("[%d]\nNome:%s\nEndereço:%s\nLatitude:%s\nLongitude:%s\nColeta:%s-%s-%s",id,name,address,lat,lng,(papel==1)?" Papel ":"",(plastico==1)?" Plastico ":"",(vidro==1)?"Vidro":"");
     }
 }

@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -40,6 +43,17 @@ public class listagem_pontos extends AppCompatActivity {
     }
     public void carregaComponentes(){
         lstvPontos1 = (ListView) findViewById(R.id.lstvPontos);
+        lstvPontos1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.e("")
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
     public void buscaPontos(){
         Call<List<Markers>> listCall = ApiClient.getMarkersService().getMarkers();
