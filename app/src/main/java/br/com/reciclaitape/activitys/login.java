@@ -23,13 +23,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class login extends AppCompatActivity {
     private EditText txtEmail,txtSenha;
     private Button btnLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login);
         carregaComponentes();
         verificaLogin();
     }
@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("Credenciais",Context.MODE_PRIVATE);
         boolean logado = sharedPreferences.getBoolean("Logado",false);
         if(logado==true){
-            Intent tela = new Intent(LoginActivity.this,CadastroPontoActivity.class);
+            Intent tela = new Intent(login.this, listagem_pontos.class);
             startActivity(tela);
             finish();
         }
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                             if(response.body().getStatus().equals("ok")){
                                 JSONObject dados = new JSONObject(new Gson().toJson(response.body()));
                                 if(guardarUsuario(dados.toString()).equals(true)){
-                                    Intent tela = new Intent(LoginActivity.this,CadastroPontoActivity.class);
+                                    Intent tela = new Intent(br.com.reciclaitape.activitys.login.this, listagem_pontos.class);
                                     startActivity(tela);
                                 }
                             }
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ApiClient.LoginResponse> call, Throwable t) {
-                        Toast.makeText(LoginActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(br.com.reciclaitape.activitys.login.this, "Erro", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

@@ -6,6 +6,10 @@ public class Markers {
     private String address;
     private Double lat;
     private Double lng;
+    private String type;
+    private int papel;
+    private int plastico;
+    private int vidro;
 
     public int getPapel() {
         return papel;
@@ -30,11 +34,6 @@ public class Markers {
     public void setVidro(int vidro) {
         this.vidro = vidro;
     }
-
-    private String type;
-    private int papel;
-    private int plastico;
-    private int vidro;
 
     public int getId() {
         return id;
@@ -84,4 +83,8 @@ public class Markers {
         this.type = type;
     }
 
+    public String toString(){
+
+        return String.format("%d-%s-%s-%s-%s-%s-%s-%s-%s",id,name,address,lat,lng,type,(papel==1)?"Coleta Papel":"",(plastico==1)?"Coleta Plastico":"",(vidro==1)?"Coleta Vidro":"");
+    }
 }

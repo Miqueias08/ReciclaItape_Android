@@ -27,14 +27,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapaActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCallback{
     private GoogleMap mMap;
     List<Markers> pontos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.mapa_reciclagem);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync((OnMapReadyCallback) this);
@@ -61,13 +61,13 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 }
                 else{
-                    Toast.makeText(MapaActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mapa_reciclagem.this, "Erro", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Markers>> call, Throwable t) {
-                Toast.makeText(MapaActivity.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mapa_reciclagem.this, "Erro de Conexão", Toast.LENGTH_SHORT).show();
                 Log.e("ERRO",t.getMessage());
             }
         });
@@ -98,7 +98,7 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
     public void Login(){
-        Intent login = new Intent(this,LoginActivity.class);
+        Intent login = new Intent(this, br.com.reciclaitape.activitys.login.class);
         startActivity(login);
         finish();
     }

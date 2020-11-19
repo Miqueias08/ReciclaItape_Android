@@ -1,5 +1,6 @@
-package br.com.reciclaitape.api;
+package br.com.reciclaitape.api.login;
 
+import br.com.reciclaitape.api.ApiClient;
 import br.com.reciclaitape.classes.Login;
 import retrofit2.Call;
 import retrofit2.http.Body;

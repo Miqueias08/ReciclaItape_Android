@@ -1,4 +1,4 @@
-package br.com.reciclaitape.api;
+package br.com.reciclaitape.api.markers;
 
 import java.util.List;
 

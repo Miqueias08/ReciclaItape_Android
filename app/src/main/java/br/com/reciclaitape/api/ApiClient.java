@@ -1,5 +1,7 @@
 package br.com.reciclaitape.api;
 
+import br.com.reciclaitape.api.login.ServiceLogin;
+import br.com.reciclaitape.api.markers.ServiceMarkers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
