@@ -85,18 +85,12 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.atualizar:
-                AtualizarMapa();
-                break;
             case R.id.login:
                 Login();
                 break;
 
         }
         return super.onOptionsItemSelected(item);
-    }
-    public void AtualizarMapa(){
-
     }
     public void Login(){
         Intent login = new Intent(this, br.com.reciclaitape.activitys.login.class);
