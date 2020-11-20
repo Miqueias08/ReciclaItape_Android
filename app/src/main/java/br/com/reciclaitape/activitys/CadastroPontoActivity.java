@@ -48,6 +48,10 @@ public class CadastroPontoActivity extends AppCompatActivity {
             Log.e("ERRO",e.getMessage());
         }
     }
+    public void onBackPressed() {
+        Intent setIntent = new Intent(this, listagem_pontos.class);
+        startActivity(setIntent);
+    }
     public void buscaPontos(Integer id){
         try {
             Call<Markers> markersCall = ApiClient.getMarkersService().obterPonto(id);

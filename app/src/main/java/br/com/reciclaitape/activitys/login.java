@@ -33,6 +33,11 @@ public class login extends AppCompatActivity {
         carregaComponentes();
         verificaLogin();
     }
+    @Override
+    public void onBackPressed() {
+        Intent setIntent = new Intent(this, mapa_reciclagem.class);
+        startActivity(setIntent);
+    }
     public void carregaComponentes(){
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtSenha = (EditText) findViewById(R.id.txtSenha);
