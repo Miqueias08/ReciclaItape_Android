@@ -20,4 +20,8 @@ public interface ServiceMarkers {
     Call<ResponseBody> deletarPonto(@Path("id") String id);
     @POST("pontos/cadastro")
     Call<ApiClient.DefaultResponse> cadastroPontos(@Body Markers markers);
+    @POST("pontos/cadastro/atualizar/{id}")
+    Call<ApiClient.DefaultResponse> atualizarPontos(@Body Markers markers,@Path("id") int id);
+    @GET("obter/ponto/{id}")
+    Call<Markers> obterPonto(@Path("id") Integer id);
 }

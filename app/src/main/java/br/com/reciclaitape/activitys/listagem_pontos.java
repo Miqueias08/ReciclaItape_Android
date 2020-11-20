@@ -120,7 +120,7 @@ public class listagem_pontos extends AppCompatActivity {
         b.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
-
+                editar(id);
             }
         });
         b.setNegativeButton("Deletar", new DialogInterface.OnClickListener() {
@@ -147,5 +147,10 @@ public class listagem_pontos extends AppCompatActivity {
             }
         });
 
+    }
+    public void editar(Integer id){
+        Intent intent = new Intent(this,CadastroPontoActivity.class);
+        intent.putExtra("id_ponto",id);
+        startActivity(intent);
     }
 }
