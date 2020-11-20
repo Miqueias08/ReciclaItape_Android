@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -80,6 +81,9 @@ public class listagem_pontos extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.Logoff:
+                Sair();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -146,11 +150,18 @@ public class listagem_pontos extends AppCompatActivity {
 
             }
         });
-
     }
     public void editar(Integer id){
         Intent intent = new Intent(this,CadastroPontoActivity.class);
         intent.putExtra("id_ponto",id);
         startActivity(intent);
+    }
+    public void Sair(){
+        SharedPreferences preferences = getSharedPreferences("Credenciais", 0);
+        preferences.edit().remove("Credencial").commit();
+        preferences.edit().remove("Logado").commit();
+        Intent intent = new Intent(this,login.class);
+        startActivity(intent);
+        finish();
     }
 }
