@@ -34,7 +34,6 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Pontos de Coleta");
         setContentView(R.layout.mapa_reciclagem);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -43,8 +42,8 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        float zoomLevel = 12.0f;
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        float zoomLevel = 15.0f;
         mMap.getUiSettings().setMapToolbarEnabled(false);
         Call<List<Markers>> listCall = ApiClient.getMarkersService().getMarkers();
         listCall.enqueue(new Callback<List<Markers>>() {
@@ -73,28 +72,5 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
             }
         });
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-23.589184, -48.048853)));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.home_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.login:
-                Login();
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    public void Login(){
-        Intent login = new Intent(this, br.com.reciclaitape.activitys.login.class);
-        startActivity(login);
-        finish();
     }
 }
