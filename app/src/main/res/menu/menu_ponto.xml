@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:title="Ponto" app:showAsAction="ifRoom" android:iconTint="@color/white" android:icon="@drawable/adicionar" android:id="@+id/adiconarPonto"> </item>
-    <item android:title="Sair" app:showAsAction="ifRoom" android:iconTint="@color/white" android:icon="@drawable/exit" android:id="@+id/Logoff"> </item>
-</menu>
