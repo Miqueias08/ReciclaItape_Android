@@ -2,7 +2,6 @@ package br.com.reciclaitape.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -19,17 +18,13 @@ import java.util.List;
 import br.com.reciclaitape.R;
 import br.com.reciclaitape.api.ApiClient;
 import br.com.reciclaitape.classes.Cooperativas;
-import br.com.reciclaitape.classes.Markers;
-import br.com.reciclaitape.interfaces.Service_Cooperativas;
+import br.com.reciclaitape.classes.CustomInfoWindowAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static java.security.AccessController.getContext;
-
 public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCallback{
     private GoogleMap mMap;
-    List<Markers> pontos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +44,7 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
         /*Inicia o mapa na cidade de Itapetininga*/
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-23.589158, -48.049099), zoomLevel), 200, null);
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(),R.raw.map_style));
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(mapa_reciclagem.this));
         carrega_pontos();
     }
     public void carrega_pontos(){
@@ -61,9 +57,10 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
                     if(cooperativas.size()>0){
                         for(Cooperativas cooperativas1:cooperativas){
                             try {
+
                                 mMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(cooperativas1.getLat(),cooperativas1.getLng()))
-                                        .title(cooperativas1.getRazao_social())
+                                        .title("sasplpALSPalspAS")
                                         .snippet("Telefone:(15)"));
                             }
                             catch (Exception e){
