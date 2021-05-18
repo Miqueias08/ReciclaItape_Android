@@ -44,6 +44,7 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
         /*Inicia o mapa na cidade de Itapetininga*/
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-23.589158, -48.049099), zoomLevel), 200, null);
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(),R.raw.map_style));
+        mMap.clear();
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(mapa_reciclagem.this));
         carrega_pontos();
     }
@@ -58,10 +59,16 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
                         for(Cooperativas cooperativas1:cooperativas){
                             try {
 
-                                mMap.addMarker(new MarkerOptions()
+                                String texto = "Endereço\n"+
+                                        cooperativas1.getEndereco()+"\n"+
+                                        "O ponto coleta o(s) seguintes tipo(s) de lixo\n"+
+                                        cooperativas1.getMaterial_aceito();
+                                MarkerOptions markerOptions = new MarkerOptions()
                                         .position(new LatLng(cooperativas1.getLat(),cooperativas1.getLng()))
-                                        .title("sasplpALSPalspAS")
-                                        .snippet("Telefone:(15)"));
+                                        .title(cooperativas1.getRazao_social())
+                                        .snippet(texto);
+
+                                mMap.addMarker(markerOptions);
                             }
                             catch (Exception e){
                                 Log.e("ERRO",e.getMessage());

@@ -13,6 +13,7 @@ public class Cooperativas {
     private Double lng;
     private String descricao;
     private Integer status;
+    private String material_aceito;
 
 
     public int getId_cooperativa() {
@@ -110,4 +111,8 @@ public class Cooperativas {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    public String getMaterial_aceito() { return material_aceito; }
+
+    public void setMaterial_aceito(String material_aceito) { this.material_aceito = material_aceito; }
 }

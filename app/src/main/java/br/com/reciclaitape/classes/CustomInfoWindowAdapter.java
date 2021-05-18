@@ -12,29 +12,40 @@ import br.com.reciclaitape.R;
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
-    private final View view;
-    private Context context;
+    private final View mWindow;
+    private Context mContext;
 
     public CustomInfoWindowAdapter(Context context) {
-        this.context = context;
-        view = LayoutInflater.from(context).inflate(R.layout.custom_info_window,null);
+        this.mContext = context;
+        mWindow = LayoutInflater.from(context).inflate(R.layout.custom_info_window,null);
     }
 
-    private void redowWindowText(Marker cooperativas, View view){
-        String razao_social = cooperativas.getTitle();
-        TextView razao_s = view.findViewById(R.id.razao_social);
-        razao_s.setText(razao_s.getText().toString());
+    private void redowWindowText(Marker marker, View view){
+        String title = marker.getTitle();
+        TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+
+        if(!title.equals("")){
+            tvTitle.setText(title);
+        }
+
+        String snippet = marker.getSnippet();
+        TextView tvSnippet = (TextView) view.findViewById(R.id.snippet);
+
+        if(!snippet.equals("")){
+            tvSnippet.setText(snippet);
+        }
+
     }
 
     @Override
     public View getInfoWindow(Marker marker) {
-        redowWindowText(marker,view);
-        return view;
+        redowWindowText(marker,mWindow);
+        return mWindow;
     }
 
     @Override
     public View getInfoContents(Marker marker) {
-        redowWindowText(marker,view);
-        return view;
+        redowWindowText(marker,mWindow);
+        return mWindow;
     }
 }
