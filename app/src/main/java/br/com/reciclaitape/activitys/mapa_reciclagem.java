@@ -54,13 +54,12 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
     private void init(){
         mBusca.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId== EditorInfo.IME_ACTION_SEARCH
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                Log.e("ERRO",String.valueOf(actionId));
+                if(actionId==EditorInfo.IME_ACTION_SEARCH
                         ||actionId==EditorInfo.IME_ACTION_DONE
-                        ||event.getAction()==KeyEvent.ACTION_DOWN
-                        ||event.getAction()==KeyEvent.KEYCODE_ENTER
-                ){
-                    Log.e("ERRO","gdgdd");
+                        ||keyEvent.getAction()==KeyEvent.ACTION_DOWN
+                        ||keyEvent.getAction()==KeyEvent.KEYCODE_ENTER){
                     /*Realiza a Busca*/
                     geolocalizacao();
                 }
