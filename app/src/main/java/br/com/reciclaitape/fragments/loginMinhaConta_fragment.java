@@ -110,6 +110,12 @@ public class loginMinhaConta_fragment extends Fragment {
                         /*PROCESSA LOGIN*/
                         if(dados.get("status").equals("ok")){
                             util.mensagem(getView(),"Login Aprovado!",false);
+                            /*GUARDANDO DADOS NA MEMORIA*/
+                            util.setar_login_status(getContext(),true);
+                            util.guardar_usuario(getContext(),dados.get("dados").toString());
+                            /*TROCANDO DE TELA*/
+                            util_navegacao.fragmentClass=minhaConta_fragment.class;
+                            util_navegacao.navegacao_fragment(getFragmentManager());
                         }
                         else{
                             util.mensagem(getView(),"Erro ao realizar o login\n"
