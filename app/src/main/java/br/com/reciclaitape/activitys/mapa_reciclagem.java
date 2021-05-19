@@ -2,8 +2,15 @@ package br.com.reciclaitape.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,6 +20,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.reciclaitape.R;
@@ -26,6 +35,9 @@ import retrofit2.Response;
 public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCallback{
     private GoogleMap mMap;
 
+    /*Widgets*/
+    private EditText mBusca;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +45,44 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync((OnMapReadyCallback) this);
+        carrega_componentes();
+        init();
+    }
+    private void carrega_componentes(){
+        mBusca = (EditText) findViewById(R.id.input_busca);
+    }
+    private void init(){
+        mBusca.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_SEARCH
+                        ||actionId==EditorInfo.IME_ACTION_DONE
+                        ||event.getAction()==KeyEvent.ACTION_DOWN
+                        ||event.getAction()==KeyEvent.KEYCODE_ENTER
+                ){
+                    Log.e("ERRO","gdgdd");
+                    /*Realiza a Busca*/
+                    geolocalizacao();
+                }
+                return false;
+            }
+        });
+    }
+    private void geolocalizacao(){
+        String searchString = mBusca.getText().toString();
+        Geocoder geocoder = new Geocoder(mapa_reciclagem.this);
+        List<Address> addresses = new ArrayList<>();
+        try {
+            addresses = geocoder.getFromLocationName(searchString,1);
+        }
+        catch (IOException e){
+            Log.e("ERRO","Geolocate IOException:"+e.getMessage());
+        }
+        if(addresses.size()>0){
+            Address address = addresses.get(0);
+            Log.d("ERRO", "Localizacoes: "+address.toString());
+            //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
