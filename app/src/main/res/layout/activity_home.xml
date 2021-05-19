@@ -12,54 +12,12 @@
         android:orientation="vertical"
         android:layout_weight="12">
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/frameContent">
+        </FrameLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:background="#fff"
-                android:elevation="10dp">
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/ic_busca"
-                    android:src="@drawable/ic_magnify"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/ic_busca"
-                    android:layout_centerVertical="true"
-                    android:textSize="15sp"
-                    android:textColor="#000"
-                    android:id="@+id/input_busca"
-                    android:background="@drawable/white_border"
-                    android:hint="Digite o Nome da Cooperativa"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text">
-
-                </EditText>
-
-            </RelativeLayout>
-
-            <fragment
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                tools:context=".MapsActivity" />
-
-        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -67,12 +25,14 @@
         android:layout_height="fill_parent"
         android:layout_weight="119"
         android:orientation="vertical">
+
         <com.google.android.material.tabs.TabLayout
             style="@style/TabLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="scrollable"
-            app:tabGravity="center">
+            app:tabGravity="center"
+            android:id="@+id/tablayout">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

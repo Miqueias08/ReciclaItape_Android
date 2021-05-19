@@ -1,16 +1,19 @@
-package br.com.reciclaitape.activitys;
-
-import androidx.appcompat.app.AppCompatActivity;
+package br.com.reciclaitape.fragments;
 
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.reciclaitape.R;
+import br.com.reciclaitape.activitys.activity_home;
 import br.com.reciclaitape.api.ApiClient;
 import br.com.reciclaitape.classes.Cooperativas;
 import br.com.reciclaitape.classes.CustomInfoWindowAdapter;
@@ -32,31 +36,64 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCallback{
-    private GoogleMap mMap;
+public class mapa_fragment extends Fragment implements OnMapReadyCallback {
 
-    /*Widgets*/
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    private String mParam1;
+    private String mParam2;
+
+    /*GOOGLE MAPS*/
+    private GoogleMap mMap;
     private EditText mBusca;
 
+    public mapa_fragment() {
+        // Required empty public constructor
+    }
+
+    public static mapa_fragment newInstance(String param1, String param2) {
+        mapa_fragment fragment = new mapa_fragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mapa_reciclagem);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate (R.layout.fragment_mapa, container, false );
+        carrega_componentes(view);
+        google_maps();
+        carrega_pontos();
+        init();
+        return view;
+    }
+    private void carrega_componentes(View view){
+        mBusca = (EditText) view.findViewById(R.id.input_busca);
+    }
+    public void google_maps(){
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync((OnMapReadyCallback) this);
-        carrega_componentes();
-        init();
-    }
-    private void carrega_componentes(){
-        mBusca = (EditText) findViewById(R.id.input_busca);
     }
     private void init(){
         mBusca.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 Log.e("ERRO",String.valueOf(actionId));
-                if(actionId==EditorInfo.IME_ACTION_SEARCH
+                if(actionId== EditorInfo.IME_ACTION_SEARCH
                         ||actionId==EditorInfo.IME_ACTION_DONE
                         ||keyEvent.getAction()==KeyEvent.ACTION_DOWN
                         ||keyEvent.getAction()==KeyEvent.KEYCODE_ENTER){
@@ -69,7 +106,7 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
     }
     private void geolocalizacao(){
         String searchString = mBusca.getText().toString();
-        Geocoder geocoder = new Geocoder(mapa_reciclagem.this);
+        Geocoder geocoder = new Geocoder(getContext());
         List<Address> addresses = new ArrayList<>();
         try {
             addresses = geocoder.getFromLocationName(searchString,1);
@@ -90,11 +127,11 @@ public class mapa_reciclagem extends AppCompatActivity implements OnMapReadyCall
         float zoomLevel = 13.5f;
 
         mMap.getUiSettings().setMapToolbarEnabled(false);
-        /*Inicia o mapa na cidade de Itapetininga*/
+        /*Inicia o mapa_fragment na cidade de Itapetininga*/
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-23.589158, -48.049099), zoomLevel), 200, null);
-        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getApplicationContext(),R.raw.map_style));
+        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(),R.raw.map_style));
         mMap.clear();
-        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(mapa_reciclagem.this));
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getContext()));
         carrega_pontos();
     }
     public void carrega_pontos(){
