@@ -1,13 +1,17 @@
 package br.com.reciclaitape.interfaces;
 
-import br.com.reciclaitape.api.ApiClient;
-import br.com.reciclaitape.classes.Login;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
+import java.util.List;
+
+import br.com.reciclaitape.classes.Usuarios;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ServiceLogin {
-    //@POST("login")
-    //Call<ApiClient.LoginResponse> userlogin(@Body Login login);
+    @POST("api/login")
+    Call<JsonObject> login_usuario(@Body Usuarios login);
 }

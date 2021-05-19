@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+
 import br.com.reciclaitape.R;
+import br.com.reciclaitape.api.ApiClient;
+import br.com.reciclaitape.classes.Cooperativas;
+import br.com.reciclaitape.classes.Usuarios;
+import br.com.reciclaitape.classes.Util;
 import br.com.reciclaitape.classes.Util_Navegacao;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class loginMinhaConta_fragment extends Fragment {
+    Util util = new Util();
     /*NAVEGACAO*/
     Util_Navegacao util_navegacao = new Util_Navegacao();
 
@@ -72,14 +89,66 @@ public class loginMinhaConta_fragment extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                cadastro.setClickable(false);
-                login.setClickable(false);
-                
-                senha.setClickable(false);
+                inicia_login();
+                login_api();
             }
         });
     }
+    public void login_api(){
+        Usuarios usuarios = new Usuarios();
+        usuarios.setEmail(email.getText().toString());
+        usuarios.setSenha(senha.getText().toString());
+        Call<JsonObject> api = ApiClient.getLoginService().login_usuario(usuarios);
+        api.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(response.isSuccessful()){
+                    /*CONVERSAO JSON*/
+                    JSONObject dados = null;
+                    try {
+                        dados = new JSONObject(new Gson().toJson(response.body()));
+                        /*PROCESSA LOGIN*/
+                        if(dados.get("status").equals("ok")){
+                            util.mensagem(getView(),"Login Aprovado!",false);
+                        }
+                        else{
+                            util.mensagem(getView(),"Erro ao realizar o login\n"
+                                    +dados.get("mensagem"),true);
+                        }
+                    } catch (JSONException e) {
+                        util.mensagem(getView(),"Erro ao realizar o login",true);
+                    }
+                    fim_login();
+                }
+                else{
+                    fim_login();
+                    util.erros(response,getView());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                fim_login();
+                util.mensagem(getView(),"Erro ao realizar o login\n"
+                        +t.getMessage(),true);
+            }
+        });
+    }
+    public void inicia_login(){
+        progressBar.setVisibility(View.VISIBLE);
+        cadastro.setClickable(false);
+        login.setClickable(false);
+        email.setEnabled(false);
+        senha.setEnabled(false);
+    }
+    public void fim_login(){
+        progressBar.setVisibility(View.GONE);
+        cadastro.setClickable(true);
+        login.setClickable(true);
+        email.setEnabled(true);
+        senha.setEnabled(true);
+    }
+
     public void cadastro(){
         cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
