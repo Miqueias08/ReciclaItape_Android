@@ -59,6 +59,11 @@ public class Util {
         SharedPreferences.Editor sharedPref = sharedPreferences.edit();
         sharedPref.putBoolean("status",login);
     }
+    public  Boolean get_loginStatus(Context context){
+        SharedPreferences preferences = context.getSharedPreferences("Status_Login", Context.MODE_PRIVATE);
+        Boolean status = preferences.getBoolean("status", false);
+        return status;
+    }
     public void guardar_usuario(Context context,String credencial){
         SharedPreferences sharedPreferences;
         sharedPreferences = context.getSharedPreferences("Credenciais", Context.MODE_PRIVATE);

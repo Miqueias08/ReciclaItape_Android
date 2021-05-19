@@ -2,6 +2,8 @@ package br.com.reciclaitape.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.ProgressBar;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -69,6 +72,19 @@ public class loginMinhaConta_fragment extends Fragment {
         }
     }
 
+    @Nullable
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public Object getEnterTransition() {
+        /*TESTE*/
+        Log.e("ERRO",util.get_loginStatus(getContext()).toString());
+        if(util.get_loginStatus(getContext())==true){
+            util_navegacao.fragmentClass=minhaConta_fragment.class;
+            util_navegacao.navegacao_fragment(getFragmentManager());
+        }
+        return super.getEnterTransition();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,6 +94,7 @@ public class loginMinhaConta_fragment extends Fragment {
         cadastro();
         return view;
     }
+
     public void carrega_componentes(View view){
         email = (EditText) view.findViewById(R.id.input_txtEmail);
         senha = (EditText) view.findViewById(R.id.input_txtSenha);
