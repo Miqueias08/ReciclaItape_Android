@@ -1,44 +1,19 @@
 package br.com.reciclaitape.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.reciclaitape.R;
-import br.com.reciclaitape.api.ApiClient;
-import br.com.reciclaitape.classes.Cooperativas;
-import br.com.reciclaitape.classes.CustomInfoWindowAdapter;
 import br.com.reciclaitape.classes.Util;
 import br.com.reciclaitape.classes.Util_Navegacao;
-import br.com.reciclaitape.fragments.loginMinhaConta_fragment;
+import br.com.reciclaitape.fragments.login_fragment;
 import br.com.reciclaitape.fragments.mapa_fragment;
-import br.com.reciclaitape.fragments.minhaConta_fragment;
+import br.com.reciclaitape.fragments.minha_conta_fragment;
 import br.com.reciclaitape.fragments.ranking_fragment;
 import br.com.reciclaitape.fragments.tutoriais_fragment;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class activity_home extends AppCompatActivity{
     Util util = new Util();
@@ -77,7 +52,12 @@ public class activity_home extends AppCompatActivity{
                         util_navegacao.fragmentClass = ranking_fragment.class;
                         break;
                     case 3:
-                        util_navegacao.fragmentClass = loginMinhaConta_fragment.class;
+                        if(util.get_loginStatus(getApplicationContext())==true){
+                            util_navegacao.fragmentClass = minha_conta_fragment.class;
+                        }
+                        else{
+                            util_navegacao.fragmentClass = login_fragment.class;
+                        }
                         break;
                 }
                 util_navegacao.navegacao_fragment(getSupportFragmentManager());

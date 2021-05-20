@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.reciclaitape.R;
-import br.com.reciclaitape.activitys.activity_home;
 import br.com.reciclaitape.api.ApiClient;
 import br.com.reciclaitape.classes.Cooperativas;
 import br.com.reciclaitape.classes.CustomInfoWindowAdapter;
@@ -73,7 +72,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate (R.layout.fragment_mapa, container, false );
+        View view = inflater.inflate (R.layout.mapa_fragment, container, false );
         carrega_componentes(view);
         google_maps();
         carrega_pontos();

@@ -2,11 +2,8 @@ package br.com.reciclaitape.fragments;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +14,11 @@ import android.widget.ProgressBar;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
-
 import br.com.reciclaitape.R;
 import br.com.reciclaitape.api.ApiClient;
-import br.com.reciclaitape.classes.Cooperativas;
 import br.com.reciclaitape.classes.Usuarios;
 import br.com.reciclaitape.classes.Util;
 import br.com.reciclaitape.classes.Util_Navegacao;
@@ -34,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class loginMinhaConta_fragment extends Fragment {
+public class login_fragment extends Fragment {
     Util util = new Util();
     /*NAVEGACAO*/
     Util_Navegacao util_navegacao = new Util_Navegacao();
@@ -50,12 +43,12 @@ public class loginMinhaConta_fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public loginMinhaConta_fragment() {
+    public login_fragment() {
         // Required empty public constructor
     }
 
-    public static loginMinhaConta_fragment newInstance(String param1, String param2) {
-        loginMinhaConta_fragment fragment = new loginMinhaConta_fragment();
+    public static login_fragment newInstance(String param1, String param2) {
+        login_fragment fragment = new login_fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,23 +65,10 @@ public class loginMinhaConta_fragment extends Fragment {
         }
     }
 
-    @Nullable
-    @org.jetbrains.annotations.Nullable
-    @Override
-    public Object getEnterTransition() {
-        /*TESTE*/
-        Log.e("ERRO",util.get_loginStatus(getContext()).toString());
-        if(util.get_loginStatus(getContext())==true){
-            util_navegacao.fragmentClass=minhaConta_fragment.class;
-            util_navegacao.navegacao_fragment(getFragmentManager());
-        }
-        return super.getEnterTransition();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate (R.layout.login_minha_conta_fragment, container, false );
+        View view = inflater.inflate (R.layout.login_fragment, container, false );
         carrega_componentes(view);
         login();
         cadastro();
@@ -131,7 +111,7 @@ public class loginMinhaConta_fragment extends Fragment {
                             util.setar_login_status(getContext(),true);
                             util.guardar_usuario(getContext(),dados.get("dados").toString());
                             /*TROCANDO DE TELA*/
-                            util_navegacao.fragmentClass=minhaConta_fragment.class;
+                            util_navegacao.fragmentClass= minha_conta_fragment.class;
                             util_navegacao.navegacao_fragment(getFragmentManager());
                         }
                         else{
@@ -176,7 +156,7 @@ public class loginMinhaConta_fragment extends Fragment {
         cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                util_navegacao.fragmentClass = cadastro_fragment.class;
+                util_navegacao.fragmentClass = cadastro_usuario_fragment.class;
                 util_navegacao.navegacao_fragment(getFragmentManager());
             }
         });

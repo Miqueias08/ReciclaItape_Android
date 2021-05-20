@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/grupo1"
+            android:title="Cadastros">
+            <menu>
+                <item
+                    android:id="@+id/HoraMaquina"
+                    android:title="Hora Maquina"
+                    android:checked="true"
+                    android:state_pressed="true"
+                    android:icon="@drawable/ranking" />
+                <!-- <item
+                     android:id="@+id/Veiculo"
+                     android:title="Veiculo"
+                     android:checked="true"
+                     android:state_pressed="true"
+                     android:icon="@drawable/ic_baseline_note_add_24" />-->
+            </menu>
+        </item>
+        <item
+            android:id="@+id/grupo3"
+            android:title="Buscas">
+            <menu>
+                <item
+                    android:id="@+id/listar_sincronizar"
+                    android:title="Listar/Sincronizar"
+                    android:checked="true"
+                    android:state_pressed="true"
+                    android:icon="@drawable/ranking"/>
+            </menu>
+        </item>
+        <item
+            android:id="@+id/grupo4"
+            android:title="">
+            <menu>
+                <item
+                    android:id="@+id/Sair"
+                    android:title="Sair"
+                    android:icon="@drawable/ranking" />
+            </menu>
+        </item>
+    </group>
+</menu>
