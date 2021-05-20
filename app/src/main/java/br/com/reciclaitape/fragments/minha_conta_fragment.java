@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -27,7 +28,9 @@ public class minha_conta_fragment extends Fragment {
     private String mParam2;
 
     /*DRAWER*/
-    private DrawerLayout drawerLayout;
+    private DrawerLayout drawer_layout;
+    private ActionBarDrawerToggle mToggle;
+    Toolbar toolbar;
 
     public minha_conta_fragment() {
         // Required empty public constructor
@@ -59,14 +62,16 @@ public class minha_conta_fragment extends Fragment {
         drawer_menu(view);
         return view;
     }
-    public void drawer_menu(View view){
-        //mToggle = new ActionBarDrawerToggle(getContext(),drawerLayout,R.string.open,R.string.close);
-        //drawerLayout.addDrawerListener(mToggle);
+    public void carrega_componentes(View view){
+        drawer_layout = (DrawerLayout) view.findViewById(R.id.drawer_minhaconta);
+        //mToggle = new ActionBarDrawerToggle(this.getActivity(),drawer_layout,R.string.open,R.string.close);
         //mToggle.syncState();
-        //((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //((AppCompatActivity)getActivity()).getSupportActionBar();
+        //NavigationView nvDrawer = (NavigationView) view.findViewById(R.id.NavigationView);
 
     }
-    public void carrega_componentes(View view){
-        NavigationView nvDrawer = (NavigationView) view.findViewById(R.id.NavigationView);
+    public void drawer_menu(View view){
+
+
     }
 }
