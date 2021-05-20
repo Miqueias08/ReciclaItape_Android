@@ -1,8 +1,10 @@
 package br.com.reciclaitape.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -27,10 +29,6 @@ public class minha_conta_fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    /*DRAWER*/
-    private DrawerLayout drawer_layout;
-    private ActionBarDrawerToggle mToggle;
-    Toolbar toolbar;
 
     public minha_conta_fragment() {
         // Required empty public constructor
@@ -59,19 +57,10 @@ public class minha_conta_fragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate (R.layout.minha_conta_fragment, container, false );
         carrega_componentes(view);
-        drawer_menu(view);
         return view;
     }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void carrega_componentes(View view){
-        drawer_layout = (DrawerLayout) view.findViewById(R.id.drawer_minhaconta);
-        //mToggle = new ActionBarDrawerToggle(this.getActivity(),drawer_layout,R.string.open,R.string.close);
-        //mToggle.syncState();
-        //((AppCompatActivity)getActivity()).getSupportActionBar();
-        //NavigationView nvDrawer = (NavigationView) view.findViewById(R.id.NavigationView);
-
-    }
-    public void drawer_menu(View view){
-
 
     }
 }

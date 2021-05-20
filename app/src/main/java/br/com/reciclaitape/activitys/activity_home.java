@@ -1,9 +1,15 @@
 package br.com.reciclaitape.activitys;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import br.com.reciclaitape.R;
@@ -20,6 +26,9 @@ public class activity_home extends AppCompatActivity{
     Util_Navegacao util_navegacao = new Util_Navegacao();
     /*WIDGET*/
     TabLayout tabLayout;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private NavigationView nvDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +37,64 @@ public class activity_home extends AppCompatActivity{
         carrega_componentes();
         navegacao_inicial();
         navegacao_tabs();
+        drawer();
+        esconder_drawerNav();
     }
     private void carrega_componentes(){
         tabLayout = findViewById(R.id.tablayout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+    }
+    public void drawer(){
+        mToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
+        drawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        nvDrawer = (NavigationView) findViewById(R.id.NavigationView);
+        setupDrawerContent(nvDrawer);
+        /*ESCODER DRAWER E NAVBAR*/
+        esconder_drawerNav();
+    }
+    public void esconder_drawerNav(){
+        getSupportActionBar().hide();
+        drawerLayout.closeDrawers();
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+    public void mostrar_drawerNav(){
+        getSupportActionBar().show();
+        drawerLayout.closeDrawers();
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+    /*AO CLICAR PARA ABRIR DRAWER*/
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    public void selectItemDrawer(MenuItem menuItem){
+        switch (menuItem.getItemId()){
+            case R.id.HoraMaquina:
+                //util_navegacao.fragmentClass = listar_usuarios.class;
+                break;
+            case R.id.Sair:
+                //logoff();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + menuItem.getItemId());
+        }
+        menuItem.setCheckable(true);
+        setTitle(menuItem.getTitle());
+        util_navegacao.navegacao_fragment(getSupportFragmentManager());
+    }
+    private void setupDrawerContent(NavigationView navigationView){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                selectItemDrawer(item);
+                return true;
+            }
+        });
     }
     private void navegacao_inicial(){
         util_navegacao.fragmentClass = mapa_fragment.class;
@@ -41,6 +105,7 @@ public class activity_home extends AppCompatActivity{
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                esconder_drawerNav();
                 switch (tab.getPosition()){
                     case 0:
                         util_navegacao.fragmentClass = tutoriais_fragment.class;
@@ -52,7 +117,9 @@ public class activity_home extends AppCompatActivity{
                         util_navegacao.fragmentClass = ranking_fragment.class;
                         break;
                     case 3:
+                        /*MINHA CONTA*/
                         if(util.get_loginStatus(getApplicationContext())==true){
+                            mostrar_drawerNav();
                             util_navegacao.fragmentClass = minha_conta_fragment.class;
                         }
                         else{
