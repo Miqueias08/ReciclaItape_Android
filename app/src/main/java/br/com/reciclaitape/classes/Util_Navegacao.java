@@ -1,5 +1,7 @@
 package br.com.reciclaitape.classes;
 
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -14,7 +16,7 @@ public class Util_Navegacao {
     public Class fragmentClass=null;
 
     public void navegacao_fragment(FragmentManager fragmentManager){
-
+        Log.e("ERRO",fragmentClass.getName());
         if(fragmentClass!=null){
             try {
                 Fragment fragment_existe=null;

@@ -5,6 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".fragments.tutoriais_fragment">
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:id="@+id/progresso_tutorial"/>
 
+    <include
+        android:id="@+id/erro_tutorial"
+        layout="@layout/nenhuma_infomacao"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"></include>
+
+    <ListView
+        android:id="@+id/lstv_tutorial"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>
