@@ -8,55 +8,70 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+
+        <ImageView
+            android:id="@+id/imagemTutorial"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/teste"
+            android:layout_gravity="center" />
+
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="15dp">
-            <TextView
-                android:id="@+id/txtInfHoraMaquina"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tutorial"
-                android:padding="10dp"
-                android:textAlignment="center"/>
-            <ImageView
-                android:id="@+id/imagemTutorial"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/teste" />
-            <TextView
-                android:id="@+id/txtCodigoHistorico"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Código"
-                android:textSize="17dp"/>
+            android:orientation="vertical">
+
 
             <TextView
-                android:id="@+id/txtPesoEntrega"
+                android:id="@+id/txtTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Peso:"
-                android:textSize="17dp"/>
+                android:text="Como reciclar o seu lixo da melhor forma - Na sua casa."
+                android:textColor="#000000"
+                android:textSize="15dp"/>
 
-            <TextView
-                    android:id="@+id/txtTipoMaterial"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tipo de Material:"
-                android:textSize="17dp"/>
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
 
-            <TextView
-                android:id="@+id/txtCooperativa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cooperativa:"
-                android:textSize="17dp"/>
+                <TextView
+                    android:id="@+id/dd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Miquéias Fernando"
+                    android:textColor="#000000"
+                    android:textSize="15dp"
+                    android:textStyle="bold"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/w"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="08/02/2021"
+                    android:textColor="#000000"
+                    android:textSize="15dp"
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
+
     </LinearLayout>
 
 
