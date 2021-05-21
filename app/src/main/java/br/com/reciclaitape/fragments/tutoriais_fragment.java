@@ -1,15 +1,24 @@
 package br.com.reciclaitape.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toolbar;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -38,6 +47,8 @@ public class tutoriais_fragment extends Fragment {
     private ProgressBar progressBar;
     private View erro;
     private ListView dados_historico;
+
+    private Toolbar toolbar;
 
     public tutoriais_fragment() {
         // Required empty public constructor
@@ -68,13 +79,16 @@ public class tutoriais_fragment extends Fragment {
         View view = inflater.inflate (R.layout.tutoriais_fragment, container, false );
         carrega_componentes(view);
         busca_tutoriais();
+        setHasOptionsMenu(true);
         return view;
     }
     public void carrega_componentes(View view){
         progressBar = (ProgressBar) view.findViewById(R.id.progresso_tutorial);
         erro = (View) view.findViewById(R.id.erro_tutorial);
         dados_historico = (ListView) view.findViewById(R.id.lstv_tutorial);
+
     }
+
     public void busca_tutoriais(){
         try {
             Call<List<Tutoriais>> listCall = new ApiClient().getTutorialService().busca_tutorial();
