@@ -2,6 +2,7 @@ package br.com.reciclaitape.api;
 
 import br.com.reciclaitape.interfaces.Service_Cooperativas;
 import br.com.reciclaitape.interfaces.ServiceLogin;
+import br.com.reciclaitape.interfaces.Service_Historico;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -31,5 +32,9 @@ public class ApiClient {
     public static Service_Cooperativas getCooperativasService(){
         Service_Cooperativas cooperativas = retrofit().create(Service_Cooperativas.class);
         return cooperativas;
+    }
+    public static Service_Historico getHistoricoService(){
+        Service_Historico historico = retrofit().create(Service_Historico.class);
+        return historico;
     }
 }

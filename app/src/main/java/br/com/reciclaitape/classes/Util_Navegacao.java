@@ -53,4 +53,10 @@ public class Util_Navegacao {
             }
         }
     }
+    public void voltar_tabs(FragmentManager fragmentManager,Class aClass,FragmentActivity fragmentActivity){
+        //((HomeActivity) fragmentActivity).habilitar_tabs();
+        //this.fragmentClass = aClass;
+        //this.navegacao_fragment(fragmentManager);
+    }
+
 }

@@ -6,18 +6,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import org.json.JSONObject;
 
 import br.com.reciclaitape.R;
 import br.com.reciclaitape.classes.Util;
 import br.com.reciclaitape.classes.Util_Navegacao;
 import br.com.reciclaitape.fragments.login_fragment;
 import br.com.reciclaitape.fragments.mapa_fragment;
-import br.com.reciclaitape.fragments.minha_conta_fragment;
+import br.com.reciclaitape.fragments.historico_fragment;
 import br.com.reciclaitape.fragments.ranking_fragment;
 import br.com.reciclaitape.fragments.tutoriais_fragment;
 
@@ -28,7 +33,7 @@ public class activity_home extends AppCompatActivity{
     TabLayout tabLayout;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
-    private NavigationView nvDrawer;
+    public NavigationView nvDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,7 @@ public class activity_home extends AppCompatActivity{
         navegacao_tabs();
         drawer();
         esconder_drawerNav();
+        setar_dados_usuario();
     }
     private void carrega_componentes(){
         tabLayout = findViewById(R.id.tablayout);
@@ -59,6 +65,17 @@ public class activity_home extends AppCompatActivity{
         drawerLayout.closeDrawers();
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
+    public void desmarcar_drawer(){
+        int size = nvDrawer.getMenu().size();
+
+        for (int i = 0; i < size; i++) {
+            int siz1 = nvDrawer.getMenu().getItem(i).getSubMenu().size();
+            for (int j = 0; i < siz1; i++) {
+                nvDrawer.getMenu().getItem(i).getSubMenu().getItem(j).setChecked(false);
+            }
+        }
+    }
+
     public void mostrar_drawerNav(){
         getSupportActionBar().show();
         drawerLayout.closeDrawers();
@@ -74,11 +91,11 @@ public class activity_home extends AppCompatActivity{
     }
     public void selectItemDrawer(MenuItem menuItem){
         switch (menuItem.getItemId()){
-            case R.id.HoraMaquina:
-                //util_navegacao.fragmentClass = listar_usuarios.class;
+            case R.id.historico:
+                util_navegacao.fragmentClass = historico_fragment.class;
                 break;
             case R.id.Sair:
-                //logoff();
+                logoff();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + menuItem.getItemId());
@@ -100,6 +117,7 @@ public class activity_home extends AppCompatActivity{
         util_navegacao.fragmentClass = mapa_fragment.class;
         util_navegacao.navegacao_fragment(getSupportFragmentManager());
         tabLayout.setScrollPosition(1,0f,true);
+
     }
     public void navegacao_tabs(){
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -120,7 +138,7 @@ public class activity_home extends AppCompatActivity{
                         /*MINHA CONTA*/
                         if(util.get_loginStatus(getApplicationContext())==true){
                             mostrar_drawerNav();
-                            util_navegacao.fragmentClass = minha_conta_fragment.class;
+                            util_navegacao.fragmentClass = historico_fragment.class;
                         }
                         else{
                             util_navegacao.fragmentClass = login_fragment.class;
@@ -142,5 +160,32 @@ public class activity_home extends AppCompatActivity{
         });
         util_navegacao.navegacao_fragment(getSupportFragmentManager());
     }
+    public void setar_dados_usuario(){
+        try {
+            JSONObject dados = util.pegar_dados_usuario(this);
+            Log.e("ERRO",util.get_saldo_entrega(this).toString());
+            //Buscando os Componentes
+            NavigationView navigationView = (NavigationView) findViewById(R.id.NavigationView);
+            View headerView = navigationView.getHeaderView(0);
+            TextView navUsername = (TextView) headerView.findViewById(R.id.username);
+            TextView navEmail = (TextView) headerView.findViewById(R.id.emailuser);
+            navUsername.setText(dados.getString("nome"));
+            navEmail.setText(dados.getString("email"));
+            TextView pontuacao = (TextView) headerView.findViewById(R.id.total_entrega);
+            pontuacao.setText(String.valueOf(util.get_saldo_entrega(this))+" KG");
+        }
+        catch (Exception e){
+            Toast.makeText(this, "Erro ao coletar as informações!", Toast.LENGTH_SHORT).show();
+            Log.e("ERRO",e.getMessage());
+        }
 
+    }
+    public void logoff(){
+        util.setar_saldo_entrega(this,0);
+        util.setar_login_status(this,false);
+        util.guardar_usuario(this,null);
+        util_navegacao.fragmentClass = login_fragment.class;
+        esconder_drawerNav();
+        util_navegacao.navegacao_fragment(getSupportFragmentManager());
+    }
 }

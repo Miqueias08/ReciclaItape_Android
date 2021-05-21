@@ -42,6 +42,39 @@ public class Util {
                 .setBackgroundTint(Color.parseColor(cor));
         snackbar.show();
     }
+    public void guardar_usuario(Context context,String credencial){
+        SharedPreferences sharedPreferences;
+        sharedPreferences = context.getSharedPreferences("Credenciais", Context.MODE_PRIVATE);
+        SharedPreferences.Editor sharedPref = sharedPreferences.edit();
+        sharedPref.putString("Credencial",credencial);
+        sharedPref.putBoolean("Logado",true);
+        sharedPref.commit();
+    }
+    public void setar_login_status(Context context,Boolean login){
+        SharedPreferences sharedPreferences;
+        sharedPreferences = context.getSharedPreferences("Status_Login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor sharedPref = sharedPreferences.edit();
+        sharedPref.putBoolean("status",login);
+        sharedPref.commit();
+    }
+    public void setar_saldo_entrega(Context context,float entrega){
+        SharedPreferences sharedPreferences;
+        sharedPreferences = context.getSharedPreferences("Saldo_Entrega", Context.MODE_PRIVATE);
+        SharedPreferences.Editor sharedPref = sharedPreferences.edit();
+        sharedPref.putFloat("entrega",entrega);
+        sharedPref.commit();
+    }
+    /*PAGAR DADOS DA MEMORIA*/
+    public  Boolean get_loginStatus(Context context){
+        SharedPreferences preferences = context.getSharedPreferences("Status_Login", Context.MODE_PRIVATE);
+        Boolean status = preferences.getBoolean("status", false);
+        return status;
+    }
+    public Float get_saldo_entrega(Context context){
+        SharedPreferences preferences = context.getSharedPreferences("Saldo_Entrega", Context.MODE_PRIVATE);
+        Float saldo = preferences.getFloat("entrega", 0);
+        return saldo;
+    }
     public JSONObject pegar_dados_usuario(Activity activity){
         SharedPreferences preferences = activity.getSharedPreferences("Credenciais", Context.MODE_PRIVATE);
         String usuario = preferences.getString("Credencial", "");
@@ -52,25 +85,5 @@ public class Util {
         } catch (JSONException e) {
             return null;
         }
-    }
-    public  Boolean get_loginStatus(Context context){
-        SharedPreferences preferences = context.getSharedPreferences("Status_Login", Context.MODE_PRIVATE);
-        Boolean status = preferences.getBoolean("status", false);
-        return status;
-    }
-    public void setar_login_status(Context context,Boolean login){
-        SharedPreferences sharedPreferences;
-        sharedPreferences = context.getSharedPreferences("Status_Login", Context.MODE_PRIVATE);
-        SharedPreferences.Editor sharedPref = sharedPreferences.edit();
-        sharedPref.putBoolean("status",login);
-        sharedPref.commit();
-    }
-    public void guardar_usuario(Context context,String credencial){
-        SharedPreferences sharedPreferences;
-        sharedPreferences = context.getSharedPreferences("Credenciais", Context.MODE_PRIVATE);
-        SharedPreferences.Editor sharedPref = sharedPreferences.edit();
-        sharedPref.putString("Credencial",credencial);
-        sharedPref.putBoolean("Logado",true);
-        sharedPref.commit();
     }
 }

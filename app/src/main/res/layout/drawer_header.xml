@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="240dp"
     android:orientation="vertical">
 
     <FrameLayout
@@ -15,7 +15,7 @@
             android:adjustViewBounds="true"
             android:maxHeight="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/white_border" />
+            android:src="@drawable/minhacontafundo" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,11 +25,11 @@
             android:padding="10dp">
 
             <ImageView
-                android:src="@drawable/logo"
-                android:layout_width="75dp"
+                android:layout_width="99dp"
                 android:layout_height="75dp"
+                android:contentDescription="TODO"
                 android:scaleType="centerCrop"
-                android:contentDescription="TODO" />
+                android:src="@drawable/logo" />
 
             <TextView
                 android:id="@+id/username"
@@ -46,6 +46,28 @@
                 android:layout_height="wrap_content"
                 android:text="miqueiasfernando@gmail.com"
                 android:textColor="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Atualmente você tem:"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/total_entrega"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:text="0 KG"
+                android:textColor="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="de Entrega de Lixo."
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="15dp"/>
 
         </LinearLayout>
 

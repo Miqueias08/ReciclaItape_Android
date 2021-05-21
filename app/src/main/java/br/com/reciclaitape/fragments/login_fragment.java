@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.com.reciclaitape.R;
+import br.com.reciclaitape.activitys.activity_home;
 import br.com.reciclaitape.api.ApiClient;
 import br.com.reciclaitape.classes.Usuarios;
 import br.com.reciclaitape.classes.Util;
@@ -106,12 +108,17 @@ public class login_fragment extends Fragment {
                         dados = new JSONObject(new Gson().toJson(response.body()));
                         /*PROCESSA LOGIN*/
                         if(dados.get("status").equals("ok")){
+                            email.setText("");
+                            senha.setText("");
                             util.mensagem(getView(),"Login Aprovado!",false);
                             /*GUARDANDO DADOS NA MEMORIA*/
                             util.setar_login_status(getContext(),true);
                             util.guardar_usuario(getContext(),dados.get("dados").toString());
+                            util.setar_saldo_entrega(getContext(),Float.valueOf(dados.get("saldo_entrega").toString()));
                             /*TROCANDO DE TELA*/
-                            util_navegacao.fragmentClass= minha_conta_fragment.class;
+                            ((activity_home) getActivity()).mostrar_drawerNav();
+                            ((activity_home) getActivity()).setar_dados_usuario();
+                            util_navegacao.fragmentClass= historico_fragment.class;
                             util_navegacao.navegacao_fragment(getFragmentManager());
                         }
                         else{
