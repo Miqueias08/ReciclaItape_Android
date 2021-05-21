@@ -3,6 +3,7 @@ package br.com.reciclaitape.api;
 import br.com.reciclaitape.interfaces.Service_Cooperativas;
 import br.com.reciclaitape.interfaces.ServiceLogin;
 import br.com.reciclaitape.interfaces.Service_Historico;
+import br.com.reciclaitape.interfaces.Service_Ranking;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -36,5 +37,9 @@ public class ApiClient {
     public static Service_Historico getHistoricoService(){
         Service_Historico historico = retrofit().create(Service_Historico.class);
         return historico;
+    }
+    public static Service_Ranking getRankingService(){
+        Service_Ranking service_ranking = retrofit().create(Service_Ranking.class);
+        return service_ranking;
     }
 }

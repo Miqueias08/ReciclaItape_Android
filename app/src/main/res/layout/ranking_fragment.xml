@@ -5,5 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ranking_fragment">
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:id="@+id/progresso_ranking"/>
+
+    <include
+        android:id="@+id/erro_ranking"
+        layout="@layout/nenhuma_infomacao"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"></include>
+
+    <ListView
+        android:id="@+id/lstv_ranking"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

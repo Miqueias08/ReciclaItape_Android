@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="15dp">
+            <TextView
+                android:id="@+id/txtInfHoraMaquina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ranking de Reciclagem"
+                android:padding="10dp"/>
+            <TextView
+                android:id="@+id/txtPosicao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Posição"
+                android:textSize="17dp"/>
+
+            <TextView
+                android:id="@+id/txtUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Usuário:"
+                android:textSize="17dp"/>
+
+            <TextView
+                android:id="@+id/txtPesoEntrega_ranking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Peso de Entrega:"
+                android:textSize="17dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

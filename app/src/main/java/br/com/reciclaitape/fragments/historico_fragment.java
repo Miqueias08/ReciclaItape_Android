@@ -111,12 +111,12 @@ public class historico_fragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<Historico>> call, Throwable t) {
-                    Log.e("ERRO",t.getMessage());
+                    util.mensagem(getView(),t.getMessage(),true);
                 }
             });
         }
         catch (Exception e){
-
+            util.mensagem(getView(),e.getMessage(),true);
         }
     }
     public void desabilitar_busca(){

@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.historico_fragment"
-    android:id="@+id/drawer_minhaconta">
+    tools:context=".fragments.historico_fragment">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:layout_width="match_parent"
