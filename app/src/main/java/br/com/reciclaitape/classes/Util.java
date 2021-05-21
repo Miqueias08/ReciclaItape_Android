@@ -11,6 +11,10 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import retrofit2.Response;
 
 public class Util {
@@ -85,5 +89,9 @@ public class Util {
         } catch (JSONException e) {
             return null;
         }
+    }
+    public String convertar_data(String data) throws ParseException {
+        //Date formato = new SimpleDateFormat("dd/MM/yyyy").parse(data);
+        return data;
     }
 }

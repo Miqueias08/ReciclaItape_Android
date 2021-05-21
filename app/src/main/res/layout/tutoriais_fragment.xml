@@ -12,7 +12,9 @@
         android:layout_height="?attr/actionBarSize"
         android:background="#00695C"
         app:title="Tutoriais"
-        app:titleTextColor="@color/white">
+        app:titleTextColor="@color/white"
+        android:id="@+id/toolbar_tutorial"
+        app:menu="@menu/menu_tutorial">
 
     </androidx.appcompat.widget.Toolbar>
 

@@ -5,8 +5,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toolbar;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -48,7 +49,7 @@ public class tutoriais_fragment extends Fragment {
     private View erro;
     private ListView dados_historico;
 
-    private Toolbar toolbar;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     public tutoriais_fragment() {
         // Required empty public constructor
@@ -86,9 +87,32 @@ public class tutoriais_fragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progresso_tutorial);
         erro = (View) view.findViewById(R.id.erro_tutorial);
         dados_historico = (ListView) view.findViewById(R.id.lstv_tutorial);
-
+        toolbar =view.findViewById(R.id.toolbar_tutorial);
+        toolbar_navegacao();
     }
+    public void toolbar_navegacao(){
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.toString()){
+                    case "Atualizar":
+                        atualizar_tutoriais();
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+    public void atualizar_tutoriais(){
+        try {
+            dados_historico.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+            busca_tutoriais();
+        }
+        catch (Exception e){
 
+        }
+    }
     public void busca_tutoriais(){
         try {
             Call<List<Tutoriais>> listCall = new ApiClient().getTutorialService().busca_tutorial();

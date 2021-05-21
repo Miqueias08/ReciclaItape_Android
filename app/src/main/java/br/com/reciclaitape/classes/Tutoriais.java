@@ -1,5 +1,9 @@
 package br.com.reciclaitape.classes;
 
+import androidx.annotation.NonNull;
+
+import org.jetbrains.annotations.NotNull;
+
 public class Tutoriais {
     private int id_tutorial;
     private String autor;
@@ -73,5 +77,14 @@ public class Tutoriais {
 
     public void setDataHora(String dataHora) {
         this.dataHora = dataHora;
+    }
+
+    @NonNull
+    @NotNull
+    @Override
+    public String toString() {
+        return String.format("{'id_tutorial':'%s','autor':'%s','titulo':'%s','subtitulo':'%s','imagem':'%s','texto':'%s','video':'%s','dataHora':'%s'}",
+                id_tutorial,autor,titulo,subtitulo,imagem,texto,video,dataHora);
+        //return super.toString();
     }
 }
