@@ -13,6 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -27,11 +32,7 @@ import java.util.Date;
 import br.com.reciclaitape.R;
 import br.com.reciclaitape.classes.Util;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link exibir_tutorial_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class exibir_tutorial_fragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
@@ -45,9 +46,10 @@ public class exibir_tutorial_fragment extends Fragment {
 
     Util util = new Util();
 
-    private TextView titulo,dados_autor;
+    private TextView titulo,dados_autor,texto;
     private ImageView banner_tutorial;
     private YouTubePlayerView youTubePlayerView;
+    YouTubePlayer.OnInitializedListener onInitializedListener;
 
     public exibir_tutorial_fragment() {
         // Required empty public constructor
@@ -83,13 +85,18 @@ public class exibir_tutorial_fragment extends Fragment {
         }
         View view = inflater.inflate (R.layout.fragment_exibir_tutorial, container, false );
         carregar_componentes(view);
+        carregar_youtube(view);
         return view;
+    }
+    public void carregar_youtube(View view){
+
+
     }
     public void carregar_componentes(View view){
         titulo = (TextView) view.findViewById(R.id.titulo_tutorial);
         dados_autor = (TextView) view.findViewById(R.id.dados_autor);
         banner_tutorial = (ImageView) view.findViewById(R.id.banner_tutorial);
-        //youTubePlayerView = (YouTubePlayerView) view.findViewById(R.id.player_youtube);
+        texto = (TextView) view.findViewById(R.id.texto);
         try {
             titulo.setText(dados.get("titulo").toString());
             /*DADOS DO AUTOR*/
@@ -99,21 +106,22 @@ public class exibir_tutorial_fragment extends Fragment {
             hora = dados.get("hora").toString();
             dados_autor.setText(String.format("Autor:%s Data:%s Hora:%s",autor,data,hora));
             /*BANNER OU YOUTUBE*/
-            Log.e("ERRO","RESULTADO: "+dados.get("video").toString());
-            if(dados.get("video").toString().trim().equals("null")){
+            //if(dados.get("video").toString().trim().equals("null")){
                 banner_tutorial.setVisibility(View.VISIBLE);
                 Picasso.get()
                         .load("https://reciclaitape.miqueiasfernando.work/img-tutorial/"+dados.get("imagem"))
                         .error(R.drawable.notfoundimage)
                         .into(banner_tutorial);
-            }
-            else{
+            //}
+            //else{
                 //youTubePlayerView.setVisibility(View.VISIBLE);
-            }
+            //}
+            texto.setText(dados.get("texto").toString());
 
         } catch (JSONException e) {
             Log.e("ERRO", "ERRO " + e.getMessage());
 
         }
     }
+
 }

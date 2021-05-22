@@ -36,5 +36,25 @@
         android:src="@drawable/notfoundimage"
         android:visibility="gone"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="texto"
+                android:id="@+id/texto"
+                android:textAlignment="center"
+                android:textSize="14dp"
+                android:padding="10dp"
+                android:textColor="#000000"/>
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

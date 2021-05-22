@@ -2,8 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical">
+
+
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -16,12 +19,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:padding="15dp">
-            <TextView
-                android:id="@+id/txtInfHoraMaquina"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ranking de Reciclagem"
-                android:padding="10dp"/>
+            
             <TextView
                 android:id="@+id/txtPosicao"
                 android:layout_width="match_parent"

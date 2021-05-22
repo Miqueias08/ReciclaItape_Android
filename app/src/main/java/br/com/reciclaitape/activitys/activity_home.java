@@ -15,6 +15,10 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.google.android.youtube.player.YouTubePlayerView;
 
 import org.json.JSONObject;
 
@@ -35,6 +39,7 @@ public class activity_home extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mToggle;
     public NavigationView nvDrawer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,6 +207,7 @@ public class activity_home extends AppCompatActivity {
         }
 
     }
+
     public void logoff(){
         util.setar_saldo_entrega(this,0);
         util.setar_login_status(this,false);

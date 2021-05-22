@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toolbar;
 
 import org.json.JSONObject;
 
@@ -38,6 +39,7 @@ public class ranking_fragment extends Fragment {
     private String mParam2;
 
     Util util = new Util();
+    private Toolbar toolbar;
 
     private ProgressBar progressBar;
     private View erro;
