@@ -1,8 +1,14 @@
 package br.com.reciclaitape.classes;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Tutoriais {
     private int id_tutorial;
@@ -83,8 +89,16 @@ public class Tutoriais {
     @NotNull
     @Override
     public String toString() {
-        return String.format("{'id_tutorial':'%s','autor':'%s','titulo':'%s','subtitulo':'%s','imagem':'%s','texto':'%s','video':'%s','dataHora':'%s'}",
-                id_tutorial,autor,titulo,subtitulo,imagem,texto,video,dataHora);
+        String data_envio=null,hora_envio=null;
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dataHora);
+            data_envio = new SimpleDateFormat("dd.MM.yyyy").format(date);
+            hora_envio = new SimpleDateFormat("HH:mm").format(date);
+        } catch (ParseException e) {
+            Log.e("ERRO",e.getMessage());
+        }
+        return String.format("{'id_tutorial':'%s','autor':'%s','titulo':'%s','subtitulo':'%s','imagem':'%s','texto':'%s','video':'%s','data':'%s','hora':'%s'}",
+                id_tutorial,autor,titulo,subtitulo,imagem,texto,video,data_envio,hora_envio);
         //return super.toString();
     }
 }

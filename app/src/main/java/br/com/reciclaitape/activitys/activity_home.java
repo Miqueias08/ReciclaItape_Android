@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.youtube.player.YouTubeBaseActivity;
 
 import org.json.JSONObject;
 
@@ -26,7 +27,7 @@ import br.com.reciclaitape.fragments.historico_fragment;
 import br.com.reciclaitape.fragments.ranking_fragment;
 import br.com.reciclaitape.fragments.tutoriais_fragment;
 
-public class activity_home extends AppCompatActivity{
+public class activity_home extends AppCompatActivity {
     Util util = new Util();
     Util_Navegacao util_navegacao = new Util_Navegacao();
     /*WIDGET*/

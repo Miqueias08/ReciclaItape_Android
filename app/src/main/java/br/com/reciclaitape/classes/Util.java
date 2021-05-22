@@ -90,8 +90,4 @@ public class Util {
             return null;
         }
     }
-    public String convertar_data(String data) throws ParseException {
-        //Date formato = new SimpleDateFormat("dd/MM/yyyy").parse(data);
-        return data;
-    }
 }

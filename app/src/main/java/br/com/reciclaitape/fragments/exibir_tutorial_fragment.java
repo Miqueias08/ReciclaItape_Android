@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -46,6 +47,7 @@ public class exibir_tutorial_fragment extends Fragment {
 
     private TextView titulo,dados_autor;
     private ImageView banner_tutorial;
+    private YouTubePlayerView youTubePlayerView;
 
     public exibir_tutorial_fragment() {
         // Required empty public constructor
@@ -87,32 +89,31 @@ public class exibir_tutorial_fragment extends Fragment {
         titulo = (TextView) view.findViewById(R.id.titulo_tutorial);
         dados_autor = (TextView) view.findViewById(R.id.dados_autor);
         banner_tutorial = (ImageView) view.findViewById(R.id.banner_tutorial);
-        Log.e("ERRO",dados.toString());
+        //youTubePlayerView = (YouTubePlayerView) view.findViewById(R.id.player_youtube);
         try {
             titulo.setText(dados.get("titulo").toString());
             /*DADOS DO AUTOR*/
             String autor,data=null,hora=null;
             autor=dados.get("autor").toString();
-            data = util.convertar_data(dados.get("dataHora").toString());
+            data = dados.get("data").toString();
+            hora = dados.get("hora").toString();
             dados_autor.setText(String.format("Autor:%s Data:%s Hora:%s",autor,data,hora));
-
-
-
-
-
-            if(dados.get("video").toString().trim()!=null||!dados.get("video").toString().trim().equals("")){
-
-            }
-            else{
+            /*BANNER OU YOUTUBE*/
+            Log.e("ERRO","RESULTADO: "+dados.get("video").toString());
+            if(dados.get("video").toString().trim().equals("null")){
                 banner_tutorial.setVisibility(View.VISIBLE);
                 Picasso.get()
                         .load("https://reciclaitape.miqueiasfernando.work/img-tutorial/"+dados.get("imagem"))
                         .error(R.drawable.notfoundimage)
                         .into(banner_tutorial);
             }
+            else{
+                //youTubePlayerView.setVisibility(View.VISIBLE);
+            }
 
-        } catch (JSONException | ParseException e) {
-            Log.e("ERRO","ERRO"+e.getMessage());
+        } catch (JSONException e) {
+            Log.e("ERRO", "ERRO " + e.getMessage());
+
         }
     }
 }

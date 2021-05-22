@@ -110,7 +110,7 @@ public class tutoriais_fragment extends Fragment {
             busca_tutoriais();
         }
         catch (Exception e){
-
+            desabilitar_busca();
         }
     }
     public void busca_tutoriais(){
@@ -141,11 +141,13 @@ public class tutoriais_fragment extends Fragment {
                 @Override
                 public void onFailure(Call<List<Tutoriais>> call, Throwable t) {
                     util.mensagem(getView(),t.getMessage(),true);
+                    desabilitar_busca();
                 }
             });
         }
         catch (Exception e){
             util.mensagem(getView(),e.getMessage(),true);
+            desabilitar_busca();
         }
     }
     public void desabilitar_busca(){
