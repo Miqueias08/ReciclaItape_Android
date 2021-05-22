@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:padding="15dp">
-            
+
             <TextView
                 android:id="@+id/txtPosicao"
                 android:layout_width="match_parent"
