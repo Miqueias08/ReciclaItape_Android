@@ -34,7 +34,7 @@
                 android:layout_gravity="center"
                 />
             <EditText
-                android:id="@+id/input_nome"
+                android:id="@+id/input_nome_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -44,7 +44,7 @@
                 android:layout_margin="15dp"
                 android:theme="@style/texto"/>
             <EditText
-                android:id="@+id/input_txtEmail"
+                android:id="@+id/input_email_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -54,7 +54,7 @@
                 android:layout_margin="15dp"
                 android:theme="@style/texto"/>
             <EditText
-                android:id="@+id/input_txtSenha"
+                android:id="@+id/input_senha_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -65,7 +65,7 @@
                 android:theme="@style/texto" />
 
             <EditText
-                android:id="@+id/input_txt_confirma_Senha"
+                android:id="@+id/input_confirma_senha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -87,7 +87,7 @@
 
 
             <Button
-                android:id="@+id/btnCadastro"
+                android:id="@+id/btnCadastro_usuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="REALIZAR CADASTRO"

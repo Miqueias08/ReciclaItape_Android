@@ -1,5 +1,6 @@
 package br.com.reciclaitape.api;
 
+import br.com.reciclaitape.interfaces.Service_Cadastro_Usuario;
 import br.com.reciclaitape.interfaces.Service_Cooperativas;
 import br.com.reciclaitape.interfaces.ServiceLogin;
 import br.com.reciclaitape.interfaces.Service_Historico;
@@ -46,5 +47,9 @@ public class ApiClient {
     public static Service_Tutorial getTutorialService(){
         Service_Tutorial service_tutorial = retrofit().create(Service_Tutorial.class);
         return service_tutorial;
+    }
+    public static Service_Cadastro_Usuario getCadastroUsuarioService(){
+        Service_Cadastro_Usuario service_cadastro_usuario = retrofit().create(Service_Cadastro_Usuario.class);
+        return service_cadastro_usuario;
     }
 }
