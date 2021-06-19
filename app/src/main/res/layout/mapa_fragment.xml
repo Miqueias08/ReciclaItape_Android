@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.mapa_fragment">
 
     <RelativeLayout
@@ -26,21 +27,32 @@
                 android:id="@+id/ic_busca"
                 android:src="@drawable/ic_magnify"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/ic_busca"
-                android:layout_centerVertical="true"
-                android:textSize="15sp"
-                android:textColor="#000"
-                android:id="@+id/input_busca"
-                android:background="@drawable/white_border"
-                android:hint="Digite o Nome da Cooperativa"
-                android:imeOptions="actionSearch"
-                android:inputType="text">
 
-            </EditText>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:textSize="15sp"
+                    android:textColor="#000"
+                    android:id="@+id/input_busca"
+                    android:hint="Selecione a Cooperativa para Filtrar"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    app:boxBackgroundColor="#ffff"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_complete"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="none"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
         </RelativeLayout>
 
@@ -51,6 +63,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             tools:context=".MapsActivity" />
+
+
 
     </RelativeLayout>
 
