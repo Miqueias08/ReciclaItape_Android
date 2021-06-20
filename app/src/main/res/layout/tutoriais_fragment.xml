@@ -14,7 +14,7 @@
         app:title="Tutoriais"
         app:titleTextColor="@color/white"
         android:id="@+id/toolbar_tutorial"
-        app:menu="@menu/menu_tutorial">
+        app:menu="@menu/menu_atualizar">
 
     </androidx.appcompat.widget.Toolbar>
 

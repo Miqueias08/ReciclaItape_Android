@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -45,6 +46,8 @@ public class ranking_fragment extends Fragment {
     private View erro;
     private ListView dados_ranking;
 
+    private androidx.appcompat.widget.Toolbar toolbar1;
+
     public ranking_fragment() {
         // Required empty public constructor
     }
@@ -79,6 +82,22 @@ public class ranking_fragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progresso_ranking);
         erro = (View) view.findViewById(R.id.erro_ranking);
         dados_ranking = (ListView) view.findViewById(R.id.lstv_ranking);
+        toolbar1 =view.findViewById(R.id.toolbar_ranking);
+        toolbar_navegacao();
+    }
+    public void toolbar_navegacao(){
+        toolbar1.setOnMenuItemClickListener(new androidx.appcompat.widget.Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.toString()){
+                    case "Atualizar":
+                        habilita_busca();
+                        busca_ranking();
+                        break;
+                }
+                return false;
+            }
+        });
     }
     public void busca_ranking(){
         try {
@@ -117,8 +136,14 @@ public class ranking_fragment extends Fragment {
     }
     public void desabilitar_busca(){
         progressBar.setVisibility(View.GONE);
+        dados_ranking.setVisibility(View.VISIBLE);
+    }
+    public void habilita_busca(){
+        progressBar.setVisibility(View.VISIBLE);
+        dados_ranking.setVisibility(View.GONE);
     }
     public void nada_encontrado(){
+        dados_ranking.setVisibility(View.GONE);
         erro.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
