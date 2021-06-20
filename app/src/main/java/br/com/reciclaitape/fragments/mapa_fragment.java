@@ -1,7 +1,11 @@
 package br.com.reciclaitape.fragments;
 
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +19,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,11 +32,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.reciclaitape.R;
 import br.com.reciclaitape.api.ApiClient;
@@ -59,6 +66,11 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback {
    ArrayList<Marker> array_location;
    String cooperativa;
 
+   public Button remover_filtro,navegar;
+   private CharSequence[] plataformas;
+
+   private Double latitude,longitude;
+
     public mapa_fragment() {
         // Required empty public constructor
     }
@@ -79,6 +91,7 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -96,6 +109,63 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback {
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.auto_complete);
         array_cooperativas = new ArrayList<>();
         array_location = new ArrayList<>();
+        remover_filtro = (Button) view.findViewById(R.id.btn_remover);
+        navegar = (Button) view.findViewById(R.id.btn_navegar);
+
+        remover_filtro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               carrega_pontos(true);
+               remover_filtro.setVisibility(View.GONE);
+               autoCompleteTextView.setThreshold(0);
+               autoCompleteTextView.clearListSelection();
+               input_busca.setSelected(false);
+               input_busca.getEditText().setText("");
+               navegar.setVisibility(View.GONE);
+            }
+        });
+
+        /*NAVEGAR*/
+        plataformas = new CharSequence[]{
+          "Google Maps",
+          "Waze",
+                "Cancelar"
+        };
+
+        navegar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+                builder.setTitle("Para qual plataforma deseja enviar a localização?");
+                builder.setSingleChoiceItems(plataformas, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(i==0){
+                            String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?q=loc:%f,%f", latitude,longitude);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                            startActivity(intent);
+                        }
+                        else if(i==1){
+                            try {
+                                // Launch Waze to look for Hawaii:
+                                String url = "https://waze.com/ul?ll="+latitude+","+longitude+"&navigate=yes";
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                startActivity(intent);
+                            } catch (ActivityNotFoundException ex) {
+                                // If Waze is not installed, open it in Google Play:
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.waze"));
+                                startActivity(intent);
+                            }
+                        }
+                        else{
+                            dialogInterface.dismiss();
+                        }
+                    }
+                });
+                builder.setIcon(R.drawable.ic_baseline_pin_drop_24);
+                builder.show();
+            }
+        });
     }
     public void carregar_cooperativas(){
         array_adapter_cooperativas = new ArrayAdapter<>(getActivity(),R.layout.tv_entity,array_cooperativas);
@@ -111,6 +181,8 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback {
                        mMap.clear();
                 }
                 carrega_pontos(false);
+                remover_filtro.setVisibility(View.VISIBLE);
+                navegar.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -160,6 +232,8 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback {
                                 }
                                 else{
                                     if(cooperativas1.getRazao_social().trim().equals(cooperativa.trim())){
+                                        latitude = cooperativas1.getLat();
+                                        longitude = cooperativas1.getLng();
                                         String texto = "Endereço\n"+
                                                 cooperativas1.getEndereco()+"\n"+
                                                 "O ponto coleta o(s) seguintes tipo(s) de lixo\n"+
@@ -172,12 +246,6 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback {
                                         array_location.add(mMap.addMarker(markerOptions));
                                     }
                                 }
-
-
-
-
-
-
 
                                 array_cooperativas.add(String.valueOf(cooperativas1.getId_cooperativa())+"°: "+cooperativas1.getRazao_social());
                             }

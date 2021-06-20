@@ -31,5 +31,12 @@
         <item name="android:textColorHint">@android:color/white</item>
     </style>
 
+    <style name="ButtonStlye123" >
+        <item name="android:textSize">10dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">#fff</item>
 
+        <item name="android:background">#A52A2A</item>
+    </style>
 </resources>
