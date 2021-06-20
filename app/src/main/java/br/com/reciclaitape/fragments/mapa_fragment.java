@@ -44,6 +44,7 @@ import br.com.reciclaitape.R;
 import br.com.reciclaitape.api.ApiClient;
 import br.com.reciclaitape.classes.Cooperativas;
 import br.com.reciclaitape.classes.CustomInfoWindowAdapter;
+import br.com.reciclaitape.classes.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,10 +67,12 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback {
    ArrayList<Marker> array_location;
    String cooperativa;
 
-   public Button remover_filtro,navegar;
+   public Button remover_filtro,navegar,atualizar;
    private CharSequence[] plataformas;
 
    private Double latitude,longitude;
+
+   Util util = new Util();
 
     public mapa_fragment() {
         // Required empty public constructor
@@ -111,6 +114,16 @@ public class mapa_fragment extends Fragment implements OnMapReadyCallback {
         array_location = new ArrayList<>();
         remover_filtro = (Button) view.findViewById(R.id.btn_remover);
         navegar = (Button) view.findViewById(R.id.btn_navegar);
+        atualizar = (Button) view.findViewById(R.id.btn_atualizar);
+
+        atualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                carrega_pontos(true);
+                util.mensagem(getView(),"Cooperativas Atualizadas",false);
+
+            }
+        });
 
         remover_filtro.setOnClickListener(new View.OnClickListener() {
             @Override
