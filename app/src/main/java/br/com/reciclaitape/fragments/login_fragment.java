@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -71,9 +72,14 @@ public class login_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate (R.layout.login_fragment, container, false );
-        carrega_componentes(view);
-        login();
-        cadastro();
+        try {
+            carrega_componentes(view);
+            login();
+            cadastro();
+        }
+        catch (Exception e){
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
 
