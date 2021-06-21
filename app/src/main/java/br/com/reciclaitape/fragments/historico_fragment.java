@@ -83,6 +83,19 @@ public class historico_fragment extends Fragment {
         erro = (View) view.findViewById(R.id.erro);
         dados_historico = (ListView) view.findViewById(R.id.lstv_historico);
     }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+
+        }
+        else
+        {
+            buscar_historico();
+            ((activity_home) getActivity()).setTitle("Histórico");
+            ((activity_home) getActivity()).nvDrawer.getMenu().getItem(0).getSubMenu().getItem(0).setCheckable(true);
+        }
+    }
     public void buscar_historico(){
         try {
             JSONObject dados = util.pegar_dados_usuario(getActivity());
