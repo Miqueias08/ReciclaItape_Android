@@ -13,7 +13,8 @@
         android:background="#00695C"
         app:title="Ranking de Usuários"
         app:titleTextColor="@color/white"
-        android:id="@+id/toolbar_ranking">
+        android:id="@+id/toolbar_ranking"
+        app:menu="@menu/menu_atualizar">
 
     </androidx.appcompat.widget.Toolbar>
     <com.google.android.material.progressindicator.LinearProgressIndicator

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.mapa_fragment">
 
     <RelativeLayout
@@ -11,36 +12,111 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="180dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:background="#fff"
-            android:elevation="10dp">
+            android:elevation="10dp"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/ic_busca"
-                android:src="@drawable/ic_magnify"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/ic_busca"
-                android:layout_centerVertical="true"
-                android:textSize="15sp"
-                android:textColor="#000"
-                android:id="@+id/input_busca"
-                android:background="@drawable/white_border"
-                android:hint="Digite o Nome da Cooperativa"
-                android:imeOptions="actionSearch"
-                android:inputType="text">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:textSize="15sp"
+                        android:textColor="#000"
+                        android:id="@+id/input_busca"
+                        android:hint="Selecione a Cooperativa para Filtrar"
+                        android:layout_margin="10dp"
+                        android:inputType="text"
+                        app:boxBackgroundColor="#ffff"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+                        <AutoCompleteTextView
+                            android:id="@+id/auto_complete"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="none"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            </EditText>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="5dp">
+                            <Button
+                                android:id="@+id/btn_atualizar"
+                                android:translationZ="1dp"
+                                android:layout_width="80dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="start"
+                                android:backgroundTint="#A52A2A"
+                                style="@style/ButtonStlye123"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:text="Atualizar"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/btn_remover"
+                                android:visibility="gone"
+                                android:translationZ="1dp"
+                                android:layout_width="80dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="end"
+                                android:backgroundTint="#A52A2A"
+                                style="@style/ButtonStlye123"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:text="Remover"
+                                />
+
+                            <Button
+                                android:id="@+id/btn_navegar"
+                                android:visibility="gone"
+                                android:translationZ="1dp"
+                                android:layout_width="80dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="end"
+                                android:backgroundTint="#A52A2A"
+                                style="@style/ButtonStlye123"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:text="Navegar"
+                                />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+                </LinearLayout>
+
 
         </RelativeLayout>
 
@@ -51,6 +127,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             tools:context=".MapsActivity" />
+
 
     </RelativeLayout>
 
